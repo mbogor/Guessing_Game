@@ -1,0 +1,13 @@
+body {
+  background-color: pink;
+}
+
+p {color:black;}
+
+h1{
+	color: navy;
+	font-size: 160%;
+}
+p {
+	font-size: 120%;
+}
