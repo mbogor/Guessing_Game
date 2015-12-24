@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html>
-<title> Grace Hopper Guessing Game</title>
-<head>
-<link rel="stylesheet" href="GG.css" type="text/css">
-</head>
-<audio autoplay>
-  <source src="file:///Users/mariyafoxter/Desktop/INTERIOR%20CROCODILE%20ALLIGATOR.mp3" type="audio/mpeg">
-</audio>
+<html lang="en">
+	
+	<head>
+		<meta charset = "utf-8">
+		<title> GHA Guessing Game</title>
+		<link rel="stylesheet" href="./css/normalize.css" type="text/css">
+		<link rel="stylesheet" href="./css/GG.css" type="text/css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	</head>
 
-<body>
-<center>
-<h1> T H E <p> G U E S S I N G <p> G A M E </h1>
+	<body>
+		<header>
+			<center>
+				<h1> T H E <br>G U E S S I N G <br>G A M E </h1>
+				<h2> let's play a guess game, play a guess game </h2>
+				<p>The rules are simple: pick a number between 1-100 and see if you can guess what Marina Abramovic is thinking! You have 5 tries.</p>
+				<img src="GGpictures/marina.jpg" alt="" 
+				style="width:444px;height:228px;" >
+			</center>
+		</header>
 
-<br>
-<img src="https://scontent.fphl1-1.fna.fbcdn.net/hphotos-xat1/v/t1.0-9/10610929_530555270408997_6821325269803016853_n.
-jpg?oh=48d5fd0f6962fa9b58f083daf802ed6e&oe=56D4F2EF" alt="guessing_game" 
-style="width:444px;height:228px;">
-<form>
-  <p>Put your guess here:</p>
-  <input type="text" name="number"
-  style="width:100px;height:50px;">
-  <br><br>
-  <input type="submit" value="Guess!">
-  <input type="submit" value="Again!">
-  <input type="submit" value="Hint!">
-</form>
+	<br>
+	<center>
+		<br>
+		<p id="message"></p>
 
-<p>5 Guesses Remaining.</p>
+		<p>Put your guess here:</p>
+		  
+		<input type="text" id = "userguess" placeholder="Your Guess">
+		  
+		<br><br>
+		  
+		<button id="guessButton" onclick="playersGuessSubmission()" onkeypress="playersGuessSubmission()">Guess!</button>
 
-</center>
-</body>
+		
+		<button id="reset" onclick="playAgain()" onkeypress="playAgain()">Again!</button>
+		<button id="hint" onclick="provideHint()" onkeypress="playAgain()">Hint!</button>
+
+		<p>Guesses Remaining:</p>
+		<p id="numberofguesses">5</p>
+
+	</center>
+	<script src="./js/GG.js"></script>
+	</body>
 </html>
