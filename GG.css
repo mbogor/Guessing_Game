@@ -4,6 +4,12 @@ body {
 
 p {color:black;}
 
+#winner {
+	color:purple;
+	font-size: 150%;
+	font: Helvetica;
+} 
+
 h1{
 	color: navy;
 	font-size: 160%;
