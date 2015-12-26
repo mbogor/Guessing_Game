@@ -6,8 +6,6 @@ var winningNumber = generateWinningNumber();
 var guesses = [];
 var numOfGuesses = 5;
 
-
-
 /* **** Guessing Game Functions **** */
 
 // Generate the Winning Number
@@ -21,47 +19,68 @@ function generateWinningNumber(){
 
 function playersGuessSubmission(){
 	playersGuess = +$("#userguess").val();
-	if (guesses.indexOf(playersGuess)==-1){
-		guesses.push(playersGuess);
-		numOfGuesses--;
-	}else{
-		$("#message").text("You already guessed that, try again!");
-	}
 	$("#userguess").val("");
-	checkGuess();
+
+	if(guesses.length==5){
+		$("#message").text("Sorry, you're out of tries :(");
+	} else {
+
+		if (isNaN(playersGuess)==true){
+			$("#message").text("Ey, whatchu doing? That's not even a number!");
+		
+		} else if (isNaN(playersGuess)==false && guesses.indexOf(playersGuess)==-1){
+			guesses.push(playersGuess);
+			numOfGuesses--;
+			$("#numberofguesses").text(numOfGuesses);
+			checkGuess();
+		
+		} else if (isNaN(playersGuess)==false && guesses.indexOf(playersGuess)!=-1){
+			$("#message").text("You already guessed " + playersGuess + ", try another number!");
+		}
+	}
+
 }
 
 // Determine if the next guess should be a lower or higher number
 
 function lowerOrHigher(){
-	//give more specific hints
-	if (playersGuess>winningNumber==true){
-		$("#message").text("Too High! Try Again.");
-	} else {
-		$("#message").text("Too Low! Try Again.");
+	var gss = "You're warm. Your guess is in a ";
+	var unit = " unit range!";
+	var cold = "You're so far, you're ice cold.";
+	var last = "This was your last try. :( And the right answer was ";
+	var difference = Math.abs(winningNumber-playersGuess);
+	
+	if (difference<=10){
+		$("#message").text(gss+"10" +unit);
+	}
+	else if (difference<=20){
+		$("#message").text(gss+"20" +unit);
+	}
+	else {
+		$("#message").text(cold);
 	}
 
-	$("#numberofguesses").text(numOfGuesses);
+	if (numOfGuesses==0){
+		$("#message").text(last + winningNumber+".");
+	}
+
 
 }
 
 // Check if the Player's Guess is the winning number 
 
-function checkGuess(){
-	if (guesses.length<6){
-		if (playersGuess==winningNumber){
-			$("#message").text("YOU WON!!!");
+function checkGuess() {
+
+	if (playersGuess==winningNumber) {
+			$("#winner").text("!!! IT'S YOU. YOU WON !!!");
+			alert("WE HAVE A WINNER!!!");
 			//add some sick congratulatory elements
-		} else{
+	} else {
 			lowerOrHigher();
-		}
-	}else{
-		$("#message").text("Sorry, you're out of tries :(");
 	}
 }
 
-
-//Fisher-Yates Shuffle algorithm
+//Fisher-Yates Shuffle algorithm, retrieved from:
 //http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
 function shuffle(array) {
@@ -100,8 +119,16 @@ function playAgain(){
 	winningNumber = generateWinningNumber();
 	guesses = [];
 	numOfGuesses = 5;
-	//page needs to refresh after this; add method
+	$("#numberofguesses").text(numOfGuesses);
+	
+	//can also use onClick="windown.location.reload()" in html
+	//but the page blinks and it's ugly
 }
 
-
 /* **** Event Listeners/Handlers **** */
+
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+        playersGuessSubmission();
+    }
+});
